@@ -78,27 +78,25 @@ public class Plane extends Vehicle {
 	@Override
 	public void movePlane() {
 		startPosX += 10;
-        //(MaxSpeed * 500 / (float)Weight) /
-          //  (countPassengers == 0 ? 1 : countPassengers);
 	}
 	
 	protected void drawLightPlane(Graphics g)
     {
         g.setColor(Color.BLACK);
-        g.drawOval(startPosX + 69, startPosY + 44, 21, 16); // обводка переда
+        g.drawOval(startPosX + 69, startPosY + 44, 21, 16); // Г®ГЎГўГ®Г¤ГЄГ  ГЇГҐГ°ГҐГ¤Г 
         g.setColor(super.getColorBody());
-        g.fillOval(startPosX + 70, startPosY + 45, 20, 15); //перед
+        g.fillOval(startPosX + 70, startPosY + 45, 20, 15); //ГЇГҐГ°ГҐГ¤
         g.setColor(Color.BLACK);
-        g.drawRect(startPosX + 54, startPosY + 19, 16, 66); // обводка крыльев
+        g.drawRect(startPosX + 54, startPosY + 19, 16, 66); // Г®ГЎГўГ®Г¤ГЄГ  ГЄГ°Г»Г«ГјГҐГў
         g.setColor(super.getDopColor());
-        g.fillRect(startPosX + 55, startPosY + 20, 15, 65); //крылья 
+        g.fillRect(startPosX + 55, startPosY + 20, 15, 65); //ГЄГ°Г»Г«ГјГї 
         g.setColor(Color.BLACK);
-        g.drawRect(startPosX-1, startPosY + 44, 81, 16); // обводка основы
+        g.drawRect(startPosX-1, startPosY + 44, 81, 16); // Г®ГЎГўГ®Г¤ГЄГ  Г®Г±Г­Г®ГўГ»
         g.setColor(super.getColorBody());
-        g.fillRect(startPosX, startPosY + 45, 80, 15); //основная линия
+        g.fillRect(startPosX, startPosY + 45, 80, 15); //Г®Г±Г­Г®ГўГ­Г Гї Г«ГЁГ­ГЁГї
         g.setColor(Color.BLACK);
-        g.drawRect(startPosX - 1, startPosY + 34, 11, 36); // обводка зада
+        g.drawRect(startPosX - 1, startPosY + 34, 11, 36); // Г®ГЎГўГ®Г¤ГЄГ  Г§Г Г¤Г 
         g.setColor(super.getDopColor());
-        g.fillRect(startPosX, startPosY + 35, 10, 35); //зад
+        g.fillRect(startPosX, startPosY + 35, 10, 35); //Г§Г Г¤
     }
 }
