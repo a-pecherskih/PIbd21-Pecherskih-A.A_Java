@@ -39,4 +39,8 @@ public class LightPlane extends Plane{
         g.setColor(Color.BLACK);
         g.drawRect(startPosX + 59, startPosY + 49, 11, 6);
     }
+    
+    public void setDopColor(Color color){
+    	this.dopColor2 = color;
+    }
 }

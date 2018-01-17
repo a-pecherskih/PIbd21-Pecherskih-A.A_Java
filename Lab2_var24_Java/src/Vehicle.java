@@ -84,4 +84,9 @@ public abstract class Vehicle implements ITransport{
         startPosX = x;
         startPosY = y;
     }
+    
+    @Override
+	public void setMainColor(Color color) {
+		colorBody = color;		
+	}
 }

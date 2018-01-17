@@ -2,7 +2,7 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 
-public class PlanePanel extends JPanel{
+public class PlanePanel extends DropPanel{
 	private ITransport inter;
 	
 	public void updatePlane(ITransport inter){

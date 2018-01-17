@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 
 
@@ -11,4 +12,6 @@ public interface ITransport {
     void loadPassenger(int count);
 
     int getPassenger();
+    
+    void setMainColor(Color color);
 }
