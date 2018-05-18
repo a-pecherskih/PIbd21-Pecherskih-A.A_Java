@@ -1,61 +1,51 @@
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ClassArray<T extends ITransport> {
-	private ArrayList<T> places;	
+	private Map<Integer,T> places;
+	private int maxCount;
 	private T defaultValue;
 	
 
     public ClassArray(int sizes, T defVal)
     {
         defaultValue = defVal;
-        places = new ArrayList<T>();
-        for (int i = 0; i < sizes; i++)
-        {
-            places.add(i, defVal);
-        }
+        places = new HashMap<Integer,T>();
+        maxCount = sizes;
     }
     
-    public int add(ClassArray<T> p, T plane)
+    public int add(T plane)
     {
-        for (int i = 0; i < p.places.size(); i++)
+    	if(places.size() == maxCount){
+    		return -1;
+    	}
+        for (int i = 0; i < places.size(); i++)
         {
-            if (p.CheckFreePlace(i))
+            if (CheckFreePlace(i))
             {
-                p.places.set(i, plane);
+                places.put(i, plane);
                 return i;
-
             }
         }
-        return -1;
+        places.put(places.size(), plane);
+        return places.size()-1;
     }
     
-    public T dec(ClassArray<T> p, int index)
+    public T dec(int index)
     {
-        if (!p.CheckFreePlace(index))
+        if (places.containsKey(index))
         {
-            T plane = p.places.get(index);
-            p.places.set(index, p.defaultValue);
+            T plane = places.get(index);
+            places.remove(index);
             return plane;
         }
-        return p.defaultValue;
+        return defaultValue;
     }
 
     private boolean CheckFreePlace(int index)
     {
-        if (index < 0 || index > places.size())
-        {
-            return false;
-        }
-        if (places.get(index) == null)
-        {
-            return true;
-        }
-        if (places.get(index).equals(defaultValue))
-        {
-            return true;
-        }
-        return false;
+        return !places.containsKey(index);
     }
     
     public T getObject(int ind)

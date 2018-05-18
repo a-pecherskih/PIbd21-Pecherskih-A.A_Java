@@ -1,24 +1,26 @@
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
+import javax.swing.border.LineBorder;
 
 
 public class Form1 {
 
 	private JFrame frame;
-	
+
 	private Airfield airfield;
 	private AirfieldPanel panel;
-    
+	JList list = new JList();;
 	Color color;
  	Color dopColor;
  	Color dopColor2;
@@ -44,11 +46,26 @@ public class Form1 {
 	 * Create the application.
 	 */
 	public Form1() {
-		airfield = new Airfield();
+		airfield = new Airfield(5);
+		
+		DefaultListModel<String> listModel = new DefaultListModel<>();
+		for(int i = 1; i < 6; i++){
+			list = new JList<>(listModel);
+			listModel.addElement("Уровень " + i);
+		}	
 		initialize();	
+		list.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 11));
+		list.setSelectedIndex(airfield.getCurrentLevel());
 		color = Color.WHITE;
         dopColor = Color.YELLOW;
         dopColor2 = Color.RED;
+        Draw();
+	}
+	
+	private void Draw(){
+		if(list.getSelectedIndex() > -1){
+			panel.updateAirfieldPanel(airfield);
+		}
 	}
 	
 	/**
@@ -56,18 +73,18 @@ public class Form1 {
 	 */
 	private void initialize() {
 		frame = new JFrame("Airfield");
-		frame.setBounds(100, 100, 838, 608);
+		frame.setBounds(100, 100, 950, 608);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		panel = new AirfieldPanel(airfield);
 		panel.setBackground(Color.WHITE);
-		panel.setBounds(0, 0, 756, 408);
+		panel.setBounds(0, 0, 756, 435);
 		frame.getContentPane().add(panel);
 		
 		PlanePanel panel_1 = new PlanePanel();
 		panel_1.setBackground(Color.WHITE);
-		panel_1.setBounds(619, 423, 137, 112);
+		panel_1.setBounds(749, 446, 137, 112);
 		frame.getContentPane().add(panel_1);
 		
 		JButton buttonSetPlane = new JButton("Set plane");
@@ -93,7 +110,7 @@ public class Form1 {
 				}
 			}
 		});
-		buttonSetPlane.setBounds(57, 456, 120, 23);
+		buttonSetPlane.setBounds(766, 257, 120, 23);
 		frame.getContentPane().add(buttonSetPlane);
 		
 		JButton buttonSetLightPlane = new JButton("Set light plane");
@@ -125,7 +142,7 @@ public class Form1 {
 				}
 			}
 		});
-		buttonSetLightPlane.setBounds(57, 500, 120, 23);
+		buttonSetLightPlane.setBounds(766, 291, 120, 23);
 		frame.getContentPane().add(buttonSetLightPlane);
 		
 		JButton buttonTakePlane = new JButton("Забрать");
@@ -144,18 +161,42 @@ public class Form1 {
 	            }
 			}
 		});
-		buttonTakePlane.setBounds(491, 488, 89, 23);
+		buttonTakePlane.setBounds(777, 412, 89, 23);
 		frame.getContentPane().add(buttonTakePlane);
 		
 		textField = new JTextField();
-		textField.setBounds(491, 457, 86, 20);
+		textField.setBounds(780, 378, 86, 20);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		JLabel label = new JLabel("\u041C\u0435\u0441\u0442\u043E:");
-		label.setBounds(495, 432, 46, 14);
+		label.setBounds(803, 353, 46, 14);
 		frame.getContentPane().add(label);
 		
+		list.setBounds(774, 11, 150, 160);
+		frame.getContentPane().add(list);
+		
+		JButton buttonDown = new JButton("<<");
+		buttonDown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				airfield.LevelDown();
+				list.setSelectedIndex(airfield.getCurrentLevel());
+				Draw();
+			}
+		});
+		buttonDown.setBounds(760, 203, 49, 31);
+		frame.getContentPane().add(buttonDown);
+		
+		JButton buttonUp = new JButton(">>");
+		buttonUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				airfield.LevelUp();
+				list.setSelectedIndex(airfield.getCurrentLevel());
+				Draw();
+			}
+		});
+		buttonUp.setBounds(829, 203, 49, 31);
+		frame.getContentPane().add(buttonUp);	
 		
 	}
 }
