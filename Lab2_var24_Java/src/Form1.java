@@ -25,6 +25,7 @@ public class Form1 {
  	Color dopColor;
  	Color dopColor2;
  	private JTextField textField;
+ 	Form2 form2;
 	
 	/**
 	 * Launch the application.
@@ -35,6 +36,7 @@ public class Form1 {
 				try {
 					Form1 window = new Form1();
 					window.frame.setVisible(true);
+					window.frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -90,17 +92,13 @@ public class Form1 {
 		JButton buttonSetPlane = new JButton("Set plane");
 		buttonSetPlane.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ColorDialog colorDialog = new ColorDialog(frame, true, color);
-				colorDialog.setLocationRelativeTo(null); 
-				colorDialog.setVisible(true);
-				color = colorDialog.getColor();
-				
-				ColorDialog colorDialog2 = new ColorDialog(frame, true, color);
-				colorDialog2.setLocationRelativeTo(null); 
-				colorDialog2.setVisible(true);
-				dopColor = colorDialog2.getColor();
-				ITransport inter = new Plane(7, 750, 1.50, 4100, color, dopColor);;
-				int place = airfield.PutPlaneInAirfield(inter);
+				form2 = new Form2(frame);
+				if(form2.Execute()){
+					ITransport plane = form2.getPlane();
+					if(plane == null){
+						return;
+					}
+				int place = airfield.PutPlaneInAirfield(plane);
 				if (place > -1) {
 					panel.updateAirfieldPanel(airfield);
 					JOptionPane.showMessageDialog(null, "Ваше место: " + (place + 1), "",
@@ -109,41 +107,10 @@ public class Form1 {
 					JOptionPane.showMessageDialog(null, "Нет мест", "", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
-		});
+			}});
 		buttonSetPlane.setBounds(766, 257, 120, 23);
 		frame.getContentPane().add(buttonSetPlane);
 		
-		JButton buttonSetLightPlane = new JButton("Set light plane");
-		buttonSetLightPlane.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ColorDialog colorDialog = new ColorDialog(frame, true, color);
-				colorDialog.setLocationRelativeTo(null); 
-				colorDialog.setVisible(true);
-				color = colorDialog.getColor();
-				
-				ColorDialog colorDialog2 = new ColorDialog(frame, true, color);
-				colorDialog2.setLocationRelativeTo(null); 
-				colorDialog2.setVisible(true);
-				dopColor = colorDialog2.getColor();
-				
-				ColorDialog colorDialog3 = new ColorDialog(frame, true, color);
-				colorDialog3.setLocationRelativeTo(null); 
-				colorDialog3.setVisible(true);
-				dopColor2 = colorDialog3.getColor();
-				
-				ITransport inter = new LightPlane(7, 750, 1.50, 4100, color, true, true, dopColor, dopColor2);
-				int place = airfield.PutPlaneInAirfield(inter);
-				if (place > -1) {
-					panel.updateAirfieldPanel(airfield);
-					JOptionPane.showMessageDialog(null, "Ваше место: " + (place + 1), "",
-					JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(null, "Нет мест", "", JOptionPane.INFORMATION_MESSAGE);
-				}
-			}
-		});
-		buttonSetLightPlane.setBounds(766, 291, 120, 23);
-		frame.getContentPane().add(buttonSetLightPlane);
 		
 		JButton buttonTakePlane = new JButton("Забрать");
 		buttonTakePlane.addActionListener(new ActionListener() {

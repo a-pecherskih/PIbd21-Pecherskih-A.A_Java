@@ -66,8 +66,8 @@ public class Plane extends Vehicle {
         setWeight(weight);
         this.countPassengers = 0;
         Random rand = new Random();
-        startPosX = rand.nextInt(10)+ 90;
-        startPosY = rand.nextInt(10) + 90;
+        startPosX = 20;
+        startPosY = 15;
     }
     
 	@Override
@@ -99,4 +99,7 @@ public class Plane extends Vehicle {
         g.setColor(super.getDopColor());
         g.fillRect(startPosX, startPosY + 35, 10, 35); //зад
     }
+	public void setMainColor(Color color) {
+		setColorBody(color);
+	}
 }
